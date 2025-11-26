@@ -1,0 +1,68 @@
+# Power BI Files
+*.pbix
+*.pbip
+*.pbit
+*.pbids
+*.pbidx
+
+# Power BI Report Server
+*.rsds
+*.rdl
+
+# Backup files
+*.backup
+*.bak
+
+# Temporary files
+*.tmp
+*.temp
+*~
+
+# OS Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE Files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Log files
+*.log
+
+# User-specific files
+*.suo
+*.user
+
+# Build results
+bin/
+obj/
+
+# Node modules (if any)
+node_modules/
+
+# Python (if any)
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+venv/
+env/
+
+# Excel temporary files
+~$*.xlsx
+~$*.xls
+
+# Windows
+ehthumbs.db
+Desktop.ini
+
+# Mac
+.DS_Store
+
+# Visual Studio Code
+.vscode/
+
