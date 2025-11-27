@@ -28,11 +28,10 @@
 1. [แนวคิดของ Relationships](#1-แนวคิดของ-relationships)
 2. [การสร้าง Relationships](#2-การสร้าง-relationships)
 3. [Cardinality](#3-cardinality)
-4. [Cross Filter Direction](#4-cross-filter-direction)
+4. [Cross Filter Direction และ Filter Context Propagation](#4-cross-filter-direction-และ-filter-context-propagation)
 5. [Active และ Inactive Relationships](#5-active-และ-inactive-relationships)
 6. [Relationship Properties](#6-relationship-properties)
 7. [VertiPaq Engine และ Relationships](#7-vertipaq-engine-และ-relationships)
-8. [แบบฝึกหัด](#แบบฝึกหัด)
 
 ### Part 2: DAX สำหรับ Relationships (โมดูลนี้ - ต่อ)
 
