@@ -878,6 +878,63 @@ CALCULATE(
 )
 ```
 
+**ตัวอย่างที่ 3: นับจำนวน Resellers ที่มีการขาย (กรณีใช้งานจริง) ⭐**
+
+**สถานการณ์:**
+- Relationship: FactResellerSales[ResellerKey] → DimReseller[ResellerKey] (Single Direction - Default)
+- ต้องการนับจำนวน Resellers ที่มีการขาย (Distinct Count)
+
+**ปัญหา:**
+- ถ้าใช้ Single Direction (Default): Filter Context จะแพร่กระจายจาก DimReseller → FactResellerSales เท่านั้น
+- เมื่อ Filter จาก Fact Table (เช่น Filter Date หรือ Product) Filter Context ไม่สามารถย้อนกลับไป Filter DimReseller ได้
+- ทำให้ DISTINCTCOUNT(DimReseller[ResellerName]) อาจนับ Resellers ทั้งหมด แทนที่จะนับเฉพาะที่มีการขายตาม Filter ที่กำหนด
+
+**วิธีแก้: ใช้ CROSSFILTER() กับ BOTH Direction**
+
+```dax
+Number of Resellers = 
+CALCULATE(
+    DISTINCTCOUNT(DimReseller[ResellerName]),
+    CROSSFILTER(FactResellerSales[ResellerKey], DimReseller[ResellerKey], BOTH)
+)
+```
+
+**อธิบายการทำงาน:**
+
+1. **CROSSFILTER(..., BOTH)** - เปลี่ยน Filter Direction เป็น Both Direction ชั่วคราว
+2. **Filter Context Propagation:**
+   - Filter จาก FactResellerSales (เช่น Date, Product) → แพร่กระจายไปยัง DimReseller
+   - Filter จาก DimReseller → แพร่กระจายไปยัง FactResellerSales
+3. **ผลลัพธ์:**
+   - เมื่อ Filter จาก Fact Table (เช่น Year = 2023)
+   - Filter Context จะแพร่กระจายไปยัง DimReseller
+   - DISTINCTCOUNT() จะนับเฉพาะ Resellers ที่มีการขายในปี 2023
+
+**เปรียบเทียบ:**
+
+**❌ ไม่ใช้ CROSSFILTER() (Single Direction - Default):**
+```dax
+Number of Resellers Wrong = DISTINCTCOUNT(DimReseller[ResellerName])
+// → นับ Resellers ทั้งหมดใน DimReseller (ไม่สนใจ Filter จาก Fact Table)
+```
+
+**✅ ใช้ CROSSFILTER() (Both Direction):**
+```dax
+Number of Resellers = 
+CALCULATE(
+    DISTINCTCOUNT(DimReseller[ResellerName]),
+    CROSSFILTER(FactResellerSales[ResellerKey], DimReseller[ResellerKey], BOTH)
+)
+// → นับเฉพาะ Resellers ที่มีการขายตาม Filter Context ปัจจุบัน
+```
+
+**กรณีใช้งานจริง:**
+- นับจำนวน Resellers ที่มีการขายในปี 2023
+- นับจำนวน Products ที่มีการขายใน Region ใด Region หนึ่ง
+- นับจำนวน Customers ที่ซื้อสินค้าประเภท Bikes
+
+**👉 หมายเหตุ:** ใช้ CROSSFILTER() แบบ Dynamic นี้แทนการตั้ง Both Direction ใน Relationship Properties เพื่อควบคุมได้ดีขึ้นและมี Performance impact เฉพาะ Measure ที่ต้องการ
+
 ---
 
 ## 5. TREATAS() {#5-treatas-part-2}
