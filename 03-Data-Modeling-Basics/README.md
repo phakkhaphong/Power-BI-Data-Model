@@ -372,18 +372,12 @@ DimDate (Conformed Dimension)
 
 
 **Bus Matrix:**
-```
-            │ Date │ Product │ Customer │ Geography │ Employee │ Granularity │
-────────────┼──────┼─────────┼──────────┼───────────┼──────────┼─────────────┤
-Reseller    │  ✓   │    ✓    │    ✓     │     ✓     │    ✓     │   Daily     │
-Sales       │      │         │          │           │          │             │
-────────────┼──────┼─────────┼──────────┼───────────┼──────────┼─────────────┤
-Internet    │  ✓   │    ✓    │    ✓     │     ✓     │          │   Daily     │
-Sales       │      │         │          │           │          │             │
-────────────┼──────┼─────────┼──────────┼───────────┼──────────┼─────────────┤
-Sales Quota │  ✓   │         │          │           │    ✓     │   Monthly   │
-────────────┴──────┴─────────┴──────────┴───────────┴──────────┴─────────────┘
-```
+
+| Business Process | Date | Product | Customer | Geography | Employee | Granularity |
+|------------------|------|---------|----------|-----------|----------|-------------|
+| Reseller Sales | ✓ | ✓ | ✓ | ✓ | ✓ | Daily |
+| Internet Sales | ✓ | ✓ | ✓ | ✓ | | Daily |
+| Sales Quota | ✓ | | | | ✓ | Monthly |
 
 #### 6.2 Granularity ⭐
 
