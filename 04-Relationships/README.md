@@ -72,24 +72,20 @@
 
 **สถานการณ์:** มี 2 ตาราง
 
-```
-ตาราง Sales (การขาย)
-┌──────────┬─────────────┬──────────────┐
-│ OrderID  │ ProductKey  │ Amount       │
-├──────────┼─────────────┼──────────────┤
-│ 1001     │ P001        │ 500          │
-│ 1002     │ P002        │ 300          │
-│ 1003     │ P001        │ 200          │
-└──────────┴─────────────┴──────────────┘
+**ตาราง Sales (การขาย):**
 
-ตาราง Product (สินค้า)
-┌─────────────┬──────────────┐
-│ ProductKey  │ ProductName  │
-├─────────────┼──────────────┤
-│ P001        │ น้ำดื่ม      │
-│ P002        │ ขนม         │
-└─────────────┴──────────────┘
-```
+| OrderID | ProductKey | Amount |
+|---------|------------|--------|
+| 1001 | P001 | 500 |
+| 1002 | P002 | 300 |
+| 1003 | P001 | 200 |
+
+**ตาราง Product (สินค้า):**
+
+| ProductKey | ProductName |
+|------------|-------------|
+| P001 | น้ำดื่ม |
+| P002 | ขนม |
 
 **คำถาม:** ต้องการแสดงรายงาน "ยอดขายของน้ำดื่ม"
 
@@ -109,25 +105,26 @@
 - ตัวอย่าง: `Sales[ProductKey]` ชี้ไปยัง `Product[ProductKey]`
 
 **ตัวอย่าง:**
-```
-Dimension Table: Product
-┌─────────────┬──────────────┐
-│ ProductKey  │ ProductName  │ ← ProductKey เป็น Primary Key
-├─────────────┼──────────────┤
-│ P001        │ น้ำดื่ม      │
-│ P002        │ ขนม         │
-└─────────────┴──────────────┘
 
-Fact Table: Sales
-┌──────────┬─────────────┬──────────────┐
-│ OrderID  │ ProductKey  │ Amount       │
-├──────────┼─────────────┼──────────────┤
-│ 1001     │ P001        │ 500          │ ← ProductKey เป็น Foreign Key
-│ 1002     │ P002        │ 300          │
-└──────────┴─────────────┴──────────────┘
+**Dimension Table: Product:**
 
-Relationship: Sales[ProductKey] → Product[ProductKey]
-```
+| ProductKey | ProductName |
+|------------|-------------|
+| P001 | น้ำดื่ม |
+| P002 | ขนม |
+
+← ProductKey เป็น Primary Key
+
+**Fact Table: Sales:**
+
+| OrderID | ProductKey | Amount |
+|---------|------------|--------|
+| 1001 | P001 | 500 |
+| 1002 | P002 | 300 |
+
+← ProductKey เป็น Foreign Key
+
+**Relationship:** `Sales[ProductKey] → Product[ProductKey]`
 
 ---
 
@@ -205,26 +202,27 @@ Relationship: Sales[ProductKey] → Product[ProductKey]
 - หนึ่งแถวใน Dimension Table สามารถมีหลายแถวใน Fact Table
 
 **ตัวอย่าง:**
-```
-Product (One)
-┌─────────────┬──────────────┐
-│ ProductKey  │ ProductName  │
-├─────────────┼──────────────┤
-│ P001        │ น้ำดื่ม      │ ← 1
-│ P002        │ ขนม         │
-└─────────────┴──────────────┘
 
-Sales (Many)
-┌──────────┬─────────────┬──────────────┐
-│ OrderID  │ ProductKey  │ Amount       │
-├──────────┼─────────────┼──────────────┤
-│ 1001     │ P001        │ 500          │ ← Many
-│ 1002     │ P002        │ 300          │
-│ 1003     │ P001        │ 200          │ ← Many (ซ้ำ)
-└──────────┴─────────────┴──────────────┘
+**Product (One):**
 
-Relationship: Product[ProductKey] → Sales[ProductKey] (1:*)
-```
+| ProductKey | ProductName |
+|------------|-------------|
+| P001 | น้ำดื่ม |
+| P002 | ขนม |
+
+← 1 (หนึ่งแถวใน Dimension Table)
+
+**Sales (Many):**
+
+| OrderID | ProductKey | Amount |
+|---------|------------|--------|
+| 1001 | P001 | 500 |
+| 1002 | P002 | 300 |
+| 1003 | P001 | 200 |
+
+← Many (หลายแถวใน Fact Table)
+
+**Relationship:** `Product[ProductKey] → Sales[ProductKey]` (1:*)
 
 **เมื่อไหร่ใช้:**
 - ⭐ ใช้บ่อยที่สุด (90% ของกรณี)
@@ -242,23 +240,20 @@ Relationship: Product[ProductKey] → Sales[ProductKey] (1:*)
 - หนึ่งแถวในตารางแรก มีแถวเดียวในตารางที่สอง
 
 **ตัวอย่าง:**
-```
-Employee (1)
-┌─────────────┬──────────────┐
-│ EmployeeID  │ EmployeeName │
-├─────────────┼──────────────┤
-│ E001        │ สมชาย        │
-└─────────────┴──────────────┘
 
-EmployeeDetails (1)
-┌─────────────┬──────────────┐
-│ EmployeeID  │ Address      │
-├─────────────┼──────────────┤
-│ E001        │ กรุงเทพ      │
-└─────────────┴──────────────┘
+**Employee (1):**
 
-Relationship: Employee[EmployeeID] → EmployeeDetails[EmployeeID] (1:1)
-```
+| EmployeeID | EmployeeName |
+|-----------|--------------|
+| E001 | สมชาย |
+
+**EmployeeDetails (1):**
+
+| EmployeeID | Address |
+|-----------|---------|
+| E001 | กรุงเทพ |
+
+**Relationship:** `Employee[EmployeeID] → EmployeeDetails[EmployeeID]` (1:1)
 
 **เมื่อไหร่ใช้:**
 - ใช้ไม่บ่อย
@@ -270,33 +265,30 @@ Relationship: Employee[EmployeeID] → EmployeeDetails[EmployeeID] (1:1)
 - หลายแถวในตารางแรกสามารถมีหลายแถวในตารางที่สอง
 
 **ตัวอย่าง:**
-```
-Student (Many)
-┌─────────────┬──────────────┐
-│ StudentID   │ StudentName  │
-├─────────────┼──────────────┤
-│ S001        │ สมชาย        │
-│ S002        │ สมหญิง       │
-└─────────────┴──────────────┘
 
-Course (Many)
-┌─────────────┬──────────────┐
-│ CourseID    │ CourseName   │
-├─────────────┼──────────────┤
-│ C001        │ คณิตศาสตร์   │
-│ C002        │ ภาษาอังกฤษ   │
-└─────────────┴──────────────┘
+**Student (Many):**
 
-Bridge Table: Enrollment
-┌─────────────┬──────────────┐
-│ StudentID   │ CourseID     │
-├─────────────┼──────────────┤
-│ S001        │ C001         │
-│ S001        │ C002         │
-│ S002        │ C001         │
-└─────────────┴──────────────┘
+| StudentID | StudentName |
+|-----------|-------------|
+| S001 | สมชาย |
+| S002 | สมหญิง |
 
-Relationships:
+**Course (Many):**
+
+| CourseID | CourseName |
+|----------|------------|
+| C001 | คณิตศาสตร์ |
+| C002 | ภาษาอังกฤษ |
+
+**Bridge Table: Enrollment**
+
+| StudentID | CourseID |
+|-----------|----------|
+| S001 | C001 |
+| S001 | C002 |
+| S002 | C001 |
+
+**Relationships:**
 Student[StudentID] → Enrollment[StudentID] (1:*)
 Course[CourseID] → Enrollment[CourseID] (1:*)
 ```

@@ -138,16 +138,13 @@
 
 **ตัวอย่างจากไฟล์ตัวอย่าง (`Data Model SCD.SemanticModel`):**
 
-```
-ตาราง FullLoad (SCD Type 2 Dimension)
-┌─────────────┬─────────────┬──────────┬─────────┬────────┬────────────┬────────────┬─────────────┬──────┐
-│ SalesRepID  │ RepSourceID │ FirstName│ LastName│ Region │ StartDate  │ EndDate    │ IsCurrent   │ Hash │
-├─────────────┼─────────────┼──────────┼─────────┼────────┼────────────┼────────────┼─────────────┼──────┤
-│ 1           │ 101         │ John     │ Doe     │ North  │ 2023-01-01 │ 2023-06-30 │ FALSE       │ ...  │
-│ 2           │ 101         │ John     │ Doe     │ South  │ 2023-07-01 │ 9999-12-31 │ TRUE        │ ...  │
-│ 3           │ 102         │ Jane     │ Smith   │ East   │ 2023-01-01 │ 9999-12-31 │ TRUE        │ ...  │
-└─────────────┴─────────────┴──────────┴─────────┴────────┴────────────┴────────────┴─────────────┴──────┘
-```
+**ตาราง FullLoad (SCD Type 2 Dimension):**
+
+| SalesRepID | RepSourceID | FirstName | LastName | Region | StartDate | EndDate | IsCurrent | Hash |
+|-----------|-------------|-----------|----------|--------|-----------|---------|-----------|------|
+| 1 | 101 | John | Doe | North | 2023-01-01 | 2023-06-30 | FALSE | ... |
+| 2 | 101 | John | Doe | South | 2023-07-01 | 9999-12-31 | TRUE | ... |
+| 3 | 102 | Jane | Smith | East | 2023-01-01 | 9999-12-31 | TRUE | ... |
 
 **การทำงาน:**
 - SalesRepID = 1: Record เก่า (John Doe อยู่ใน North จนถึง 2023-06-30)
